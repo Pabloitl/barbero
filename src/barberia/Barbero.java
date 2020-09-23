@@ -23,10 +23,13 @@ public class Barbero {
     //Método que simula el corte de pelo
     public void atiende(Cliente cliente) throws InterruptedException {
         while (!cupo.tryAcquire()) // Mientras no esté ocupado, puede atender
-            Thread.sleep(100);     // Tiempo en que realiza el corte
-        cliente.printEnters(System.out);
-        Thread.sleep(cliente.tiempoEnAccion);
-        cliente.printExits(System.out);
+            Thread.sleep(100);     // Tiempo que espera a que se desocupe
+        // Imprime mensaje de que atiende al cliente
+        cliente.printEnters(System.out); 
+        // Se duerme el hilo mientras realiza el corte de pelo
+        Thread.sleep(cliente.tiempoEnAccion); 
+        // Imprime mensaje de que termino el corte
+        cliente.printExits(System.out);  
         cupo.release();  // Se despacha al cliente
     }
     
